@@ -27,14 +27,11 @@ export class SwaggerConfiguratorCore {
       '<ul>' +
       '<li><a href="https://waha.devlike.pro/" target="_blank">Documentation</a></li>' +
       '<li><a href="https://waha.devlike.pro/docs/how-to/engines/#features" target="_blank">Supported features in engines</a></li>' +
-      '<li><a href="https://github.com/devlikeapro/waha" target="_blank">GitHub - WAHA Core</a></li>' +
-      '<li><a href="https://github.com/devlikeapro/waha-plu' + // Separate line to pass pre-commit check
-      's" target="_blank">GitHub - WAHA Plus</a></li>' +
+      '<li><a href="https://github.com/devlikeapro/waha" target="_blank">GitHub - WAHA</a></li>' +
       '</ul>' +
-      '<p>Support the project and get WAHA Plus version!</p>' +
+      '<p>Connect to WhatsApp with our WhatsApp HTTP API!</p>' +
       '<ul>' +
-      '<li><a href="https://waha.devlike.pro/docs/how-to/plu' + // Separate line to pass pre-commit check
-      's-version/" target="_blank">WAHA Plus</a></li>' +
+      '<li><a href="https://waha.devlike.pro/docs/" target="_blank">Documentation</a></li>' +
       '<li><a href="https://patreon.com/wa_http_api/" target="_blank">Patreon</a></li>' +
       '<li><a href="https://boosty.to/wa-http-api/" target="_blank">Boosty</a></li>' +
       '<li><a href="https://portal.devlike.pro/" target="_blank">Patron Portal</a></li>' +

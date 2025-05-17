@@ -44,15 +44,6 @@ import { MediaManager } from './media/MediaManager';
 import { LocalSessionAuthRepository } from './storage/LocalSessionAuthRepository';
 import { LocalStoreCore } from './storage/LocalStoreCore';
 
-export class OnlyDefaultSessionIsAllowed extends UnprocessableEntityException {
-  constructor(name: string) {
-    const encoded = Buffer.from(name, 'utf-8').toString('base64');
-    super(
-      `WAHA Core support only 'default' session. You tried to access '${name}' session (base64: ${encoded}). ` +
-        `If you want to run more then one WhatsApp account - please get WAHA PLUS version. Check this out: ${DOCS_URL}`,
-    );
-  }
-}
 
 enum DefaultSessionStatus {
   REMOVED = undefined,
@@ -116,9 +107,7 @@ export class SessionManagerCore extends SessionManager implements OnModuleInit {
   }
 
   private onlyDefault(name: string) {
-    if (name !== this.DEFAULT) {
-      throw new OnlyDefaultSessionIsAllowed(name);
-    }
+    return;
   }
 
   async beforeApplicationShutdown(signal?: string) {
@@ -378,14 +367,11 @@ export class SessionManagerCore extends SessionManager implements OnModuleInit {
   }
 
   async getSessionInfo(name: string): Promise<SessionDetailedInfo | null> {
-    if (name !== this.DEFAULT) {
-      return null;
-    }
     const sessions = await this.getSessions(true);
     if (sessions.length === 0) {
       return null;
     }
-    const session = sessions[0];
+    const session = sessions.find(s => s.name === name) || sessions[0];
     const engine = await this.fetchEngineInfo();
     return { ...session, engine: engine };
   }

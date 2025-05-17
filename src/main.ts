@@ -52,20 +52,23 @@ async function loadModules(): Promise<
 > {
   const version = getWAHAVersion();
 
-  if (version === WAHAVersion.CORE) {
+  try {
+    if (version === WAHAVersion.CORE) {
+      const { AppModuleCore } = await import('./core/app.module.core');
+      const { SwaggerConfiguratorCore } = await import(
+        './core/SwaggerConfiguratorCore'
+      );
+      return [AppModuleCore, SwaggerConfiguratorCore];
+    }
+    const { AppModulePlus } = await import('./plus/app.module.plus');
+    const { SwaggerConfiguratorPlus } = await import('./plus/SwaggerConfiguratorPlus');
+    return [AppModulePlus, SwaggerConfiguratorPlus];
+  } catch (error) {
+    logger.warn('Failed to load Plus modules, falling back to Core modules');
     const { AppModuleCore } = await import('./core/app.module.core');
-    const { SwaggerConfiguratorCore } = await import(
-      './core/SwaggerConfiguratorCore'
-    );
+    const { SwaggerConfiguratorCore } = await import('./core/SwaggerConfiguratorCore');
     return [AppModuleCore, SwaggerConfiguratorCore];
   }
-  // Ignore if it's core version - there's no plus module
-  // @ts-ignore
-  const { AppModulePlus } = await import('./plus/app.module.plus');
-  // @ts-ignore
-  const { SwaggerConfiguratorPlus } = await import('./plus/SwaggerConfiguratorPlus'); // prettier-ignore
-  // @ts-ignore
-  return [AppModulePlus, SwaggerConfiguratorPlus];
 }
 
 async function bootstrap() {
